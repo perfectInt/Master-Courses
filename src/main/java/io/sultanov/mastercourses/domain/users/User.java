@@ -1,5 +1,6 @@
 package io.sultanov.mastercourses.domain.users;
 
+import io.sultanov.mastercourses.enums.UserRole;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -27,4 +28,8 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 }

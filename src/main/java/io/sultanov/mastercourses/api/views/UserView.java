@@ -1,5 +1,6 @@
 package io.sultanov.mastercourses.api.views;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data

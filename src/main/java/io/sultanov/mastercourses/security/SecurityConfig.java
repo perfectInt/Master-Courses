@@ -11,10 +11,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/api/auth/signup/**").permitAll()
+                .antMatchers("/api/signup/**").permitAll()
                 .antMatchers("/actuator/shutdown").permitAll()
                 .anyRequest().authenticated().and().csrf().disable().httpBasic();
     }
