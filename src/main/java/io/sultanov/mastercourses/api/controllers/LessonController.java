@@ -32,4 +32,9 @@ public class LessonController {
     public LessonView getLesson(@PathVariable Long number) {
         return lessonMapper.toView(lessonService.getLesson(number));
     }
+
+    @PutMapping(value = "/lesson/edit/{id}", produces = "application/json", consumes = "application/json")
+    public LessonView editLesson(@PathVariable Long id, @RequestBody LessonDTO lessonDTO) {
+        return lessonMapper.toView(lessonService.editLesson(id, lessonMapper.toLesson(lessonDTO)));
+    }
 }

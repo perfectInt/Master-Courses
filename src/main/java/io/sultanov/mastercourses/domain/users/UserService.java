@@ -2,9 +2,9 @@ package io.sultanov.mastercourses.domain.users;
 
 import io.sultanov.mastercourses.api.dtos.UserDTO;
 import io.sultanov.mastercourses.enums.UserRole;
-import io.sultanov.mastercourses.exceptions.RemoveAdminRoleException;
-import io.sultanov.mastercourses.exceptions.UserAlreadyExistsException;
-import io.sultanov.mastercourses.exceptions.UserNotFoundException;
+import io.sultanov.mastercourses.exceptions.users.RemoveAdminRoleException;
+import io.sultanov.mastercourses.exceptions.users.UserAlreadyExistsException;
+import io.sultanov.mastercourses.exceptions.users.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

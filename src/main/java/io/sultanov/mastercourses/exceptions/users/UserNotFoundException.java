@@ -1,4 +1,4 @@
-package io.sultanov.mastercourses.exceptions;
+package io.sultanov.mastercourses.exceptions.users;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
