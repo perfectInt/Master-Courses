@@ -13,7 +13,7 @@ public class LessonService {
     private final LessonRepository lessonRepository;
 
     public List<Lesson> getLessons() {
-        return lessonRepository.findAllOrderByNumber();
+        return lessonRepository.findByOrderByNumber();
     }
 
     public Lesson createLesson(Lesson lesson) {

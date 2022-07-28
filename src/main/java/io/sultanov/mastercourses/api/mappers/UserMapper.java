@@ -9,8 +9,8 @@ public class UserMapper {
 
     public UserView toView(User user) {
         UserView userView = new UserView();
-        userView.setName(user.getName());
         userView.setEmail(user.getEmail());
+        userView.setName(user.getName());
         return userView;
     }
 }

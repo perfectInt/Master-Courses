@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LessonRepository extends JpaRepository<Lesson, Long> {
-    List<Lesson> findAllOrderByNumber();
+    List<Lesson> findByOrderByNumber();
 
     Optional<Lesson> findByNumber(Long number);
 }

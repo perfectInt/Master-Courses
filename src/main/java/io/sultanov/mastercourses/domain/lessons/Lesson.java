@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Accessors(chain = true)
 @Entity
 @Table(name = "lessons")
-@Builder(toBuilder = true)
 @NoArgsConstructor
 public class Lesson {
     @Id

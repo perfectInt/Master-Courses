@@ -5,12 +5,13 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @Accessors(chain = true)
 @ToString
-@Builder
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
@@ -20,7 +21,7 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "name")
@@ -29,7 +30,11 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
+    @Column(name = "roles")
+    @ElementCollection(fetch = FetchType.EAGER)
+    Set<UserRole> roles = new HashSet<>();
+
+    public void addRole(UserRole role) {
+        roles.add(role);
+    }
 }
