@@ -22,8 +22,8 @@ public class Lesson {
     private Long number;
 
     @Column(name = "name_of_lesson")
-    private String lessonName;
+    private String title;
 
     @Column(name = "text_of_lesson")
-    private String lessonText;
+    private String description;
 }

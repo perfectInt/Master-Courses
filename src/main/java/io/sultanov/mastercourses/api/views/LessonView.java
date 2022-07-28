@@ -1,13 +1,12 @@
 package io.sultanov.mastercourses.api.views;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
 public class LessonView {
     private Long number;
 
-    private String lessonName;
+    private String title;
 
-    private String lessonText;
+    private String description;
 }

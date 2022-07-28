@@ -13,8 +13,8 @@ public class LessonDTO {
     private Long number;
 
     @NotBlank
-    private String lessonName;
+    private String title;
 
     @NotBlank
-    private String lessonText;
+    private String description;
 }

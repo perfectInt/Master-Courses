@@ -13,8 +13,8 @@ public class LessonMapper {
     public LessonView toView(Lesson lesson) {
         LessonView lessonView = new LessonView();
         lessonView.setNumber(lesson.getNumber());
-        lessonView.setLessonName(lesson.getLessonName());
-        lessonView.setLessonText(lesson.getLessonText());
+        lessonView.setDescription(lesson.getDescription());
+        lessonView.setTitle(lesson.getTitle());
         return lessonView;
     }
 
@@ -25,7 +25,7 @@ public class LessonMapper {
     public Lesson toLesson(LessonDTO lessonDTO) {
         return new Lesson()
                 .setNumber(lessonDTO.getNumber())
-                .setLessonName(lessonDTO.getLessonName())
-                .setLessonText(lessonDTO.getLessonText());
+                .setDescription(lessonDTO.getDescription())
+                .setTitle(lessonDTO.getTitle());
     }
 }
