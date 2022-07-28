@@ -5,10 +5,8 @@ import io.sultanov.mastercourses.api.mappers.UserMapper;
 import io.sultanov.mastercourses.api.views.UserView;
 import io.sultanov.mastercourses.domain.users.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -23,5 +21,10 @@ public class UserController {
     @PostMapping(value = "/signup", produces = "application/json", consumes = "application/json")
     public UserView register(@Valid @RequestBody UserDTO userDTO) {
         return userMapper.toView(userService.register(userDTO));
+    }
+
+    @DeleteMapping(value = "/user/delete/{id}", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        return userService.delete(id);
     }
 }

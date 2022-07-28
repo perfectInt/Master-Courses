@@ -2,14 +2,16 @@ package io.sultanov.mastercourses.domain.users;
 
 import io.sultanov.mastercourses.api.dtos.UserDTO;
 import io.sultanov.mastercourses.enums.UserRole;
+import io.sultanov.mastercourses.exceptions.RemoveAdminRoleException;
 import io.sultanov.mastercourses.exceptions.UserAlreadyExistsException;
+import io.sultanov.mastercourses.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -53,5 +55,13 @@ public class UserService {
 
     public boolean checkPassword(String firstPassword, String secondPassword) {
         return passwordEncoder.matches(firstPassword, secondPassword);
+    }
+
+    public ResponseEntity<?> delete(Long id) {
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        if (user.getRoles().contains(UserRole.ROLE_ADMIN))
+            throw new RemoveAdminRoleException();
+        userRepository.delete(user);
+        return new ResponseEntity<>("status", HttpStatus.NO_CONTENT);
     }
 }
