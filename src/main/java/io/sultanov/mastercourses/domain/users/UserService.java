@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -62,6 +63,6 @@ public class UserService {
         if (user.getRoles().contains(UserRole.ROLE_ADMIN))
             throw new RemoveAdminRoleException();
         userRepository.delete(user);
-        return new ResponseEntity<>("status", HttpStatus.NO_CONTENT);
+        return ResponseEntity.ok(Map.of("status", "deleted!"));
     }
 }

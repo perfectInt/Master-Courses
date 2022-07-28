@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/signup/**").permitAll()
                 .antMatchers("/actuator/shutdown").permitAll()
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
-                .antMatchers("/api/user/delete/**").hasRole("ADMIN")
+                .antMatchers("/api/admin/user/delete/**").hasRole("ADMIN")
                 .anyRequest().authenticated().and().csrf().disable().httpBasic();
     }
 
