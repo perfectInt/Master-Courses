@@ -20,10 +20,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/actuator/shutdown").permitAll()
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/admin/user/delete/**").hasRole("ADMIN")
+                .antMatchers("/api/lesson/edit/**").hasAnyRole("ADMIN", "MODERATOR")
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin();
+                .csrf().disable().httpBasic();
     }
 
     @Bean

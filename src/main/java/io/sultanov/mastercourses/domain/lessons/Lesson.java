@@ -26,4 +26,7 @@ public class Lesson {
 
     @Column(name = "text_of_lesson")
     private String description;
+
+    @Column(name = "visibility")
+    private Boolean visible;
 }

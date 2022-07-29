@@ -17,7 +17,7 @@ public class AdminController {
         return "admin";
     }
 
-    @DeleteMapping(value = "/user/delete/{id}", produces = "application/json", consumes = "application/json")
+    @DeleteMapping(value = "/user/delete/{id}", produces = "application/json")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         return userService.delete(id);
     }

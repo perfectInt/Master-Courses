@@ -34,6 +34,9 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     Set<UserRole> roles = new HashSet<>();
 
+    @Column(name = "access")
+    private Boolean accessibility;
+
     public void addRole(UserRole role) {
         roles.add(role);
     }
