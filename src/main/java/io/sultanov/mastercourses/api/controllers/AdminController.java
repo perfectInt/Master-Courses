@@ -2,6 +2,7 @@ package io.sultanov.mastercourses.api.controllers;
 
 import io.sultanov.mastercourses.domain.users.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ public class AdminController {
         return "admin";
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "/user/delete/{id}", produces = "application/json")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         return userService.delete(id);
