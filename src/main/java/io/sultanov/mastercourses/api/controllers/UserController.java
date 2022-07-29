@@ -1,5 +1,6 @@
 package io.sultanov.mastercourses.api.controllers;
 
+import io.sultanov.mastercourses.api.dtos.NameDTO;
 import io.sultanov.mastercourses.api.dtos.PasswordDTO;
 import io.sultanov.mastercourses.api.dtos.UserDTO;
 import io.sultanov.mastercourses.api.mappers.UserMapper;
@@ -30,5 +31,11 @@ public class UserController {
     public ResponseEntity<?> changePassword(@AuthenticationPrincipal UserDetails userDetails,
                                             @Valid @RequestBody PasswordDTO passwordDTO) {
         return userService.changePass(userDetails, passwordDTO);
+    }
+
+    @PutMapping(value = "/changename", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> changeName(@AuthenticationPrincipal UserDetails userDetails,
+                                        @Valid @RequestBody NameDTO nameDTO) {
+        return userService.changeName(userDetails, nameDTO);
     }
 }

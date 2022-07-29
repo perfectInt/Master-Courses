@@ -16,12 +16,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/api/signup/**", "/index", "/", "").permitAll()
+                .antMatchers("/api/signup/**").permitAll()
                 .antMatchers("/actuator/shutdown").permitAll()
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/admin/user/delete/**").hasRole("ADMIN")
                 .antMatchers("/api/lesson/edit/**").hasAnyRole("ADMIN", "MODERATOR")
                 .antMatchers("/api/lesson/create/**").hasAnyRole("ADMIN", "MODERATOR")
+                .antMatchers("/api/admin/changeaccess/**").hasAnyRole("ADMIN", "MODERATOR")
                 .anyRequest()
                 .authenticated()
                 .and()

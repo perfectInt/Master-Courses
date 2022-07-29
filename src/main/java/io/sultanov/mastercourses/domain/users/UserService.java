@@ -1,10 +1,13 @@
 package io.sultanov.mastercourses.domain.users;
 
+import io.sultanov.mastercourses.api.dtos.AccessDTO;
+import io.sultanov.mastercourses.api.dtos.NameDTO;
 import io.sultanov.mastercourses.api.dtos.PasswordDTO;
 import io.sultanov.mastercourses.api.dtos.UserDTO;
 import io.sultanov.mastercourses.enums.UserRole;
 import io.sultanov.mastercourses.exceptions.passwords.DifferentPasswordsException;
 import io.sultanov.mastercourses.exceptions.passwords.OldNewPasswordException;
+import io.sultanov.mastercourses.exceptions.users.NewNameException;
 import io.sultanov.mastercourses.exceptions.users.RemoveAdminRoleException;
 import io.sultanov.mastercourses.exceptions.users.UserAlreadyExistsException;
 import io.sultanov.mastercourses.exceptions.users.UserNotFoundException;
@@ -77,5 +80,25 @@ public class UserService {
             throw new DifferentPasswordsException();
         }
         throw new OldNewPasswordException();
+    }
+
+    public ResponseEntity<?> changeName(UserDetails userDetails, NameDTO nameDTO) {
+        User user = userRepository.findByEmail(userDetails.getUsername()).orElseThrow(UserNotFoundException::new);
+        if (Objects.equals(user.getName(), nameDTO.getName()))
+            throw new NewNameException();
+        user.setName(nameDTO.getName());
+        userRepository.save(user);
+        return ResponseEntity.ok(Map.of(
+                "status", "name has been successfully changed"
+        ));
+    }
+
+    public ResponseEntity<?> changeAccess(Long id, AccessDTO accessDTO) {
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        user.setAccessibility(accessDTO.getAccess());
+        userRepository.save(user);
+        return ResponseEntity.ok(Map.of(
+                "status", "changed successfully"
+        ));
     }
 }
