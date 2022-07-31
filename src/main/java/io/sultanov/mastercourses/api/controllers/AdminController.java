@@ -1,6 +1,7 @@
 package io.sultanov.mastercourses.api.controllers;
 
 import io.sultanov.mastercourses.api.dtos.AccessDTO;
+import io.sultanov.mastercourses.api.dtos.ChangeRoleDTO;
 import io.sultanov.mastercourses.domain.users.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,5 +32,11 @@ public class AdminController {
     public ResponseEntity<?> changeAccess(@PathVariable Long id,
                                           @Valid @RequestBody AccessDTO accessDTO) {
         return userService.changeAccess(id, accessDTO);
+    }
+
+    @PutMapping(value = "/changerole/{id}", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> changeRole(@PathVariable Long id,
+                                        @Valid @RequestBody ChangeRoleDTO changeRoleDTO) {
+        return userService.changeRole(id, changeRoleDTO);
     }
 }

@@ -1,16 +1,10 @@
 package io.sultanov.mastercourses.domain.users;
 
-import io.sultanov.mastercourses.api.dtos.AccessDTO;
-import io.sultanov.mastercourses.api.dtos.NameDTO;
-import io.sultanov.mastercourses.api.dtos.PasswordDTO;
-import io.sultanov.mastercourses.api.dtos.UserDTO;
+import io.sultanov.mastercourses.api.dtos.*;
 import io.sultanov.mastercourses.enums.UserRole;
 import io.sultanov.mastercourses.exceptions.passwords.DifferentPasswordsException;
 import io.sultanov.mastercourses.exceptions.passwords.OldNewPasswordException;
-import io.sultanov.mastercourses.exceptions.users.NewNameException;
-import io.sultanov.mastercourses.exceptions.users.RemoveAdminRoleException;
-import io.sultanov.mastercourses.exceptions.users.UserAlreadyExistsException;
-import io.sultanov.mastercourses.exceptions.users.UserNotFoundException;
+import io.sultanov.mastercourses.exceptions.users.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -99,6 +90,21 @@ public class UserService {
         userRepository.save(user);
         return ResponseEntity.ok(Map.of(
                 "status", "changed successfully"
+        ));
+    }
+
+    public ResponseEntity<?> changeRole(Long id, ChangeRoleDTO changeRoleDTO) {
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        if (user.getRoles().contains(UserRole.ROLE_ADMIN))
+            throw new ChangeAdminRoleException();
+        if (changeRoleDTO.getRoles().contains("MODERATOR"))
+            user.setRoles(Set.of(UserRole.ROLE_MODERATOR));
+        else if (changeRoleDTO.getRoles().contains("USER"))
+            user.setRoles(Set.of(UserRole.ROLE_USER));
+        else if (changeRoleDTO.getRoles().contains("ADMIN"))
+            user.setRoles(Set.of(UserRole.ROLE_ADMIN));
+        return ResponseEntity.ok(Map.of(
+                "status", "user roles has been changed!"
         ));
     }
 }

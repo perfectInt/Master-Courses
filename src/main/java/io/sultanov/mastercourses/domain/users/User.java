@@ -31,11 +31,12 @@ public class User {
     private String password;
 
     @Column(name = "roles")
+    @Enumerated(value = EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     Set<UserRole> roles = new HashSet<>();
 
     @Column(name = "access")
-    private Boolean accessibility;
+    private Boolean accessibility = false;
 
     public void addRole(UserRole role) {
         roles.add(role);

@@ -23,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/lesson/edit/**").hasAnyRole("ADMIN", "MODERATOR")
                 .antMatchers("/api/lesson/create/**").hasAnyRole("ADMIN", "MODERATOR")
                 .antMatchers("/api/admin/changeaccess/**").hasAnyRole("ADMIN", "MODERATOR")
+                .antMatchers("/api/admin/changerole/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

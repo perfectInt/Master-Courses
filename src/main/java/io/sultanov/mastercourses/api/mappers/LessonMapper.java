@@ -26,6 +26,7 @@ public class LessonMapper {
         return new Lesson()
                 .setNumber(lessonDTO.getNumber())
                 .setDescription(lessonDTO.getDescription())
-                .setTitle(lessonDTO.getTitle());
+                .setTitle(lessonDTO.getTitle())
+                .setVisible(false);
     }
 }
