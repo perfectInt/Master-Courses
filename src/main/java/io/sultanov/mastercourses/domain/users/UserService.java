@@ -32,7 +32,8 @@ public class UserService {
                         .setEmail(userDTO.getEmail())
                         .setName(userDTO.getName())
                         .setPassword(passwordEncoder.encode(userDTO.getPassword()))
-                        .setRoles(Set.of(UserRole.ROLE_ADMIN)));
+                        .setRole(UserRole.ADMIN))
+                        .setAccessibility(true);
             }
             else {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -44,7 +45,7 @@ public class UserService {
                         .setEmail(userDTO.getEmail())
                         .setName(userDTO.getName())
                         .setPassword(passwordEncoder.encode(userDTO.getPassword()))
-                        .setRoles(Set.of(UserRole.ROLE_USER)));
+                        .setRole(UserRole.USER));
             }
             else {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -54,7 +55,7 @@ public class UserService {
 
     public ResponseEntity<?> delete(Long id) {
         User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        if (user.getRoles().contains(UserRole.ROLE_ADMIN))
+        if (user.getRole() == UserRole.ADMIN)
             throw new RemoveAdminRoleException();
         userRepository.delete(user);
         return ResponseEntity.ok(Map.of("status", "deleted!"));
@@ -95,14 +96,15 @@ public class UserService {
 
     public ResponseEntity<?> changeRole(Long id, ChangeRoleDTO changeRoleDTO) {
         User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        if (user.getRoles().contains(UserRole.ROLE_ADMIN))
+        if (user.getRole() == UserRole.ADMIN)
             throw new ChangeAdminRoleException();
-        if (changeRoleDTO.getRoles().contains("MODERATOR"))
-            user.setRoles(Set.of(UserRole.ROLE_MODERATOR));
-        else if (changeRoleDTO.getRoles().contains("USER"))
-            user.setRoles(Set.of(UserRole.ROLE_USER));
-        else if (changeRoleDTO.getRoles().contains("ADMIN"))
-            user.setRoles(Set.of(UserRole.ROLE_ADMIN));
+        if (Objects.equals(changeRoleDTO.getRole(), "MODERATOR"))
+            user.setRole(UserRole.MODERATOR);
+        else if (Objects.equals(changeRoleDTO.getRole(), "USER"))
+            user.setRole(UserRole.USER);
+        else if (Objects.equals(changeRoleDTO.getRole(), "ADMIN"))
+            user.setRole(UserRole.ADMIN);
+        userRepository.save(user);
         return ResponseEntity.ok(Map.of(
                 "status", "user roles has been changed!"
         ));

@@ -30,15 +30,10 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "roles")
+    @Column(name = "role")
     @Enumerated(value = EnumType.STRING)
-    @ElementCollection(fetch = FetchType.EAGER)
-    Set<UserRole> roles = new HashSet<>();
+    private UserRole role;
 
     @Column(name = "access")
     private Boolean accessibility = false;
-
-    public void addRole(UserRole role) {
-        roles.add(role);
-    }
 }
