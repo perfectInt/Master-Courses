@@ -35,5 +35,5 @@ public class User {
     private UserRole role;
 
     @Column(name = "access")
-    private Boolean accessibility = false;
+    private Boolean accessibility;
 }

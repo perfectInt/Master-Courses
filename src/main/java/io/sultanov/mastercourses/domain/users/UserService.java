@@ -32,8 +32,8 @@ public class UserService {
                         .setEmail(userDTO.getEmail())
                         .setName(userDTO.getName())
                         .setPassword(passwordEncoder.encode(userDTO.getPassword()))
-                        .setRole(UserRole.ADMIN))
-                        .setAccessibility(true);
+                        .setRole(UserRole.ADMIN)
+                        .setAccessibility(true));
             }
             else {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -45,7 +45,8 @@ public class UserService {
                         .setEmail(userDTO.getEmail())
                         .setName(userDTO.getName())
                         .setPassword(passwordEncoder.encode(userDTO.getPassword()))
-                        .setRole(UserRole.USER));
+                        .setRole(UserRole.USER)
+                        .setAccessibility(false));
             }
             else {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
